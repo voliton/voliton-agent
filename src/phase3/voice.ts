@@ -128,6 +128,19 @@ function fitPost(text: string): string {
 
   const lines = normalized.split('\n')
   const link = lines[lines.length - 1].startsWith('http') ? lines.pop() : ''
+  const postLength = (bodyLines: string[]) => {
+    const body = bodyLines.join('\n')
+    return link ? `${body}\n${link}`.length : body.length
+  }
+
+  while (postLength(lines) > MAX_POST_LENGTH && lines.length > 1) {
+    let removeIndex = 1
+    for (let i = 2; i < lines.length; i += 1) {
+      if (lines[i].length > lines[removeIndex].length) removeIndex = i
+    }
+    lines.splice(removeIndex, 1)
+  }
+
   const bodyLimit = link ? MAX_POST_LENGTH - link.length - 2 : MAX_POST_LENGTH
   const body = lines.join('\n')
 

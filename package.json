@@ -6,7 +6,8 @@
   "scripts": {
     "start": "ts-node src/index.ts",
     "dev": "ts-node-dev --respawn --transpile-only src/index.ts",
-    "build": "tsc"
+    "build": "tsc",
+    "voice:preview": "ts-node src/phase3/preview.ts"
   },
   "dependencies": {
     "openai": "^4.28.0",

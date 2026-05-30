@@ -97,6 +97,14 @@ X_AUTO_POST_ENABLED=false
 npm start
 ```
 
+### Preview Phase 3 Voice
+
+```bash
+npm run voice:preview
+```
+
+This prints sample X posts locally without calling the X API.
+
 ---
 
 ## Telegram Commands
