@@ -109,6 +109,14 @@ This prints sample X posts locally without calling the X API.
 
 Phase 3 writes every candidate post to `data/voice-log.json` as `posted`, `skipped`, or `failed`. X posting is opt-in; leave `X_AUTO_POST_ENABLED=false` to keep Voliton silent while still collecting the voice audit log.
 
+Inspect the voice audit log:
+
+```bash
+npm run voice:log
+npm run voice:log -- --status failed
+npm run voice:log -- --type wallet_activity --limit 50
+```
+
 ---
 
 ## Telegram Commands
