@@ -27,6 +27,8 @@ export const config = {
     autoPostEnabled: (process.env.X_AUTO_POST_ENABLED || 'false').toLowerCase() === 'true',
     walletMinTxCount: parseInt(process.env.X_WALLET_MIN_TX_COUNT || '2'),
     walletMinTokenAmount: parseFloat(process.env.X_WALLET_MIN_TOKEN_AMOUNT || '100000'),
+    walletCooldownMs: parseInt(process.env.X_WALLET_COOLDOWN_MS || '1800000'),
+    voiceLogMaxEntries: parseInt(process.env.X_VOICE_LOG_MAX_ENTRIES || '1000'),
   },
   flaunch: {
     apiKey: process.env.FLAUNCH_API_KEY || '',

@@ -89,6 +89,8 @@ GITHUB_TOKEN=your_github_token
 # Phase 3 - X API v2 OAuth 2.0 user access token
 X_ACCESS_TOKEN=your_x_oauth2_user_access_token
 X_AUTO_POST_ENABLED=false
+X_WALLET_COOLDOWN_MS=1800000
+X_VOICE_LOG_MAX_ENTRIES=1000
 ```
 
 ### Run
@@ -104,6 +106,8 @@ npm run voice:preview
 ```
 
 This prints sample X posts locally without calling the X API.
+
+Phase 3 writes every candidate post to `data/voice-log.json` as `posted`, `skipped`, or `failed`. X posting is opt-in; leave `X_AUTO_POST_ENABLED=false` to keep Voliton silent while still collecting the voice audit log.
 
 ---
 

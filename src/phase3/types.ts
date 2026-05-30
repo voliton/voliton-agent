@@ -27,3 +27,23 @@ export interface ParsedVerdict {
   reason?: string
   action?: string
 }
+
+export type VoiceEventType = 'new_token' | 'dev_dump' | 'wallet_activity'
+export type VoicePostStatus = 'posted' | 'skipped' | 'failed'
+
+export interface VoiceLogEntry {
+  id: string
+  eventKey: string
+  type: VoiceEventType
+  status: VoicePostStatus
+  reason?: string
+  text: string
+  createdAt: string
+  postedAt?: string
+  xPostId?: string
+  error?: string
+}
+
+export interface VoiceLogStorage {
+  entries: VoiceLogEntry[]
+}
