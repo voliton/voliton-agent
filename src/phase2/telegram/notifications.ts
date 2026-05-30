@@ -126,7 +126,7 @@ export function formatWalletActivity(
 
   for (const tx of txs.slice(0, 5)) {
     const dir = tx.direction === 'out' ? '🔴 SELL/SEND' : '🟢 BUY/RECEIVE'
-    const decimals = 18
+    const decimals = parseInt(tx.tokenDecimal || '18')
     const amount = (Number(BigInt(tx.value || '0')) / 10 ** decimals).toFixed(4)
     const symbol = tx.tokenSymbol || 'TOKEN'
     lines.push(`${dir} <b>${amount} ${symbol}</b>`)

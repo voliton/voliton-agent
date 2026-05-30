@@ -15,6 +15,7 @@ Voliton is an autonomous AI agent built on top of Base MCP — the onchain execu
 - 👛 **Tracks** custom wallets — notifies on every transaction
 - 🚨 **Alerts** when dev wallets dump after launch
 - 📡 **Broadcasts** everything to your Telegram channel automatically
+- 🗣️ **Posts** to X autonomously when launches, dev dumps, or significant wallet moves happen
 
 ---
 
@@ -24,7 +25,7 @@ Voliton is an autonomous AI agent built on top of Base MCP — the onchain execu
 |-------|------|--------|
 | Phase 1 | The Brain — Core agent + Claude connection | ✅ Done |
 | Phase 2 | The Eyes — Scanner + Wallet Tracker + Identity + Dev Tracker | ✅ Done |
-| Phase 3 | The Voice — X auto-post | ⏳ Pending |
+| Phase 3 | The Voice — X auto-post | ✅ Done |
 | Phase 4 | The Hands — Onchain execution via Base MCP | ⏳ Pending |
 | Phase 5 | The Economy — Token utility + revenue sharing | ⏳ Pending |
 
@@ -84,6 +85,10 @@ TELEGRAM_CHANNEL_ID=your_channel_id
 
 # Optional (higher GitHub rate limits)
 GITHUB_TOKEN=your_github_token
+
+# Phase 3 - X API v2 OAuth 2.0 user access token
+X_ACCESS_TOKEN=your_x_oauth2_user_access_token
+X_AUTO_POST_ENABLED=false
 ```
 
 ### Run

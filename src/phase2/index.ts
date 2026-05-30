@@ -3,6 +3,7 @@ import { TokenScanner } from './scanner/index'
 import { WalletTracker } from './wallet-tracker/index'
 import { DevTracker } from './dev-tracker/index'
 import { VolitonBot } from './telegram/bot'
+import { Phase3 } from '../phase3/index'
 import { verifyIdentity } from './enricher/identity'
 import { enrichFromDexScreener } from './enricher/dexscreener'
 import { formatNewToken, formatWalletActivity, formatDevDump } from './telegram/notifications'
@@ -16,6 +17,7 @@ export class Phase2 {
   private walletTracker: WalletTracker
   private devTracker: DevTracker
   private bot: VolitonBot
+  private voice: Phase3
 
   constructor(agent: VolitonAgent) {
     this.agent = agent
@@ -23,6 +25,7 @@ export class Phase2 {
     this.walletTracker = new WalletTracker(config.scanner.walletCheckIntervalMs)
     this.devTracker = new DevTracker(120000)
     this.bot = new VolitonBot()
+    this.voice = new Phase3()
   }
 
   async start(): Promise<void> {
@@ -31,6 +34,7 @@ export class Phase2 {
     console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n')
 
     await this.bot.start()
+    await this.voice.start()
 
     this.scanner.onToken(async (token: NewToken) => {
       await this.handleNewToken(token)
@@ -40,12 +44,14 @@ export class Phase2 {
       console.log(`\n👛 Activity: ${wallet.label} — ${txs.length} new tx(s)`)
       const msg = formatWalletActivity(wallet, txs)
       await this.bot.sendToChannel(msg)
+      await this.voice.postWalletActivity({ wallet, txs })
     })
 
     this.devTracker.onDevDump(async (alert: DevAlert) => {
       console.log(`\n🚨 DEV DUMP: ${alert.token.name} — ${alert.amount} tokens`)
       const msg = formatDevDump(alert)
       await this.bot.sendToChannel(msg, alert.token.imageUrl)
+      await this.voice.postDevDump({ alert })
     })
 
     await this.scanner.start()
@@ -61,6 +67,7 @@ export class Phase2 {
     this.walletTracker.stop()
     this.devTracker.stop()
     this.bot.stop()
+    this.voice.stop()
   }
 
   private async handleNewToken(token: NewToken): Promise<void> {
@@ -98,6 +105,7 @@ export class Phase2 {
 
       const message = formatNewToken(token, identity, verdict)
       await this.bot.sendToChannel(message, token.imageUrl)
+      await this.voice.postNewToken({ token, identity, aiVerdict: verdict })
 
       console.log(`   ✅ Sent to Telegram channel`)
     } catch (err: any) {

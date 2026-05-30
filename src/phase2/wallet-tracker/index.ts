@@ -11,6 +11,7 @@ export interface WalletTx {
   timeStamp: string
   tokenName?: string
   tokenSymbol?: string
+  tokenDecimal?: string
   contractAddress?: string
   direction: 'in' | 'out'
 }
@@ -131,6 +132,7 @@ export class WalletTracker {
       timeStamp: tx.timeStamp,
       tokenName: tx.tokenName,
       tokenSymbol: tx.tokenSymbol,
+      tokenDecimal: tx.tokenDecimal,
       contractAddress: tx.contractAddress,
       direction: (tx.from || '').toLowerCase() === address.toLowerCase() ? 'out' : 'in',
     }))
